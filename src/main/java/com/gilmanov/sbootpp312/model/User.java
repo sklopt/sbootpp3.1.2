@@ -2,11 +2,13 @@ package com.gilmanov.sbootpp312.model;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
-@Table(name = "users")
+@Table(name = "users2")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(name = "name", nullable = false, length = 500)
     private String name;
@@ -71,5 +73,17 @@ public class User {
                 ", surname='" + surname + '\'' +
                 ", age=" + age +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User user)) return false;
+        return Objects.equals(getId(), user.getId()) && getAge() == user.getAge() && Objects.equals(getName(), user.getName()) && Objects.equals(getSurname(), user.getSurname());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getSurname(), getAge());
     }
 }

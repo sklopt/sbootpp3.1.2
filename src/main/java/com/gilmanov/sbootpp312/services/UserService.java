@@ -1,37 +1,18 @@
 package com.gilmanov.sbootpp312.services;
 
 import com.gilmanov.sbootpp312.model.User;
-import com.gilmanov.sbootpp312.repositories.UserRepository;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-public class UserService {
+public interface UserService {
 
-    private final UserRepository userRepository;
+    List<User> getAllUsers();
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    void saveUser(User user);
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
+    void removeUserById(long id);
 
-    public void saveUser(User user) {
-        userRepository.save(user);
-    }
+    void changeUser(User user);
 
-    public void removeUserById(long id) {
-        userRepository.delete(getUserById(id));
-    }
-
-    public void changeUser(User user) {
-        userRepository.save(user);
-    }
-
-    public User getUserById(long id) {
-        return userRepository.findById(id).orElse(null);
-    }
+    User getUserById(long id);
 }
